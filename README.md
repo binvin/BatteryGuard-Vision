@@ -257,4 +257,6 @@ Developed as a solo project for the **OpenCV AI Competition 2026**.
 
 ## License
 
-See the repository's license information. Licensing terms will be specified by the project owner before publication.
+Copyright © 2026. All rights reserved.
+
+This project was developed for the OpenCV AI Competition 2026. The source code is provided for evaluation and demonstration purposes. No license for redistribution, modification, or commercial use is granted.

@@ -12,23 +12,24 @@ Its architecture separates image processing, contextual interpretation, and huma
 
 ```mermaid
 flowchart TD
-    A["Battery Photograph - JPG / PNG"]
-    B["Streamlit Web Interface - Local Application"]
+    A["Battery Image"]
+    B["Streamlit UI"]
 
     A --> B
 
-    B -->|"Authenticated boto3 invocation"| C["AWS Lambda - us-east-2 - OpenCV 5"]
+    B -->|"Authenticated boto3 invocation"| C["OpenCV 5 Vision Engine
+AWS Lambda (us-east-2)"]
     B -->|"Optional vision request"| D["Amazon Bedrock - us-east-2 - Nova Lite"]
 
     E["Amazon ECR - Private Container Image"] -.->|"Container deployment"| C
 
-    C --> F["Image Quality Assessment and Candidate Visual Regions"]
-    D --> G["Contextual Assessment, Uncertainty and Follow-up Guidance"]
+    C --> F["Image Quality + Visual Cues"]
+    D --> G["Contextual AI Assessment"]
 
     F --> H["Streamlit Results Display"]
     G --> H
 
-    H --> I["Human Inspector Review - No Safety Certification"]
+    H --> I["Human Review"]
 ```
 
 **Architecture note:** OpenCV 5 runs inside the containerized AWS Lambda function. Amazon Bedrock is invoked separately by the Streamlit application. The two outputs are displayed together but are not automatically reconciled into a single verified defect classification.

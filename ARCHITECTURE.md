@@ -1,4 +1,4 @@
-# BatteryGuard Vision — System Architecture
+# BatteryGuard Vision - System Architecture
 
 ## 1. Overview
 
@@ -24,7 +24,7 @@ AWS Lambda (us-east-2)"]
     E["Amazon ECR - Private Container Image"] -.->|"Container deployment"| C
 
     C --> F["Image Quality + Visual Cues"]
-    D --> G["Contextual AI Assessment"]
+    D --> G["AI Findings + Uncertainty + Next Evidence"]
 
     F --> H["Streamlit Results Display"]
     G --> H
@@ -32,7 +32,13 @@ AWS Lambda (us-east-2)"]
     H --> I["Human Review"]
 ```
 
-**Architecture note:** OpenCV 5 runs inside the containerized AWS Lambda function. Amazon Bedrock is invoked separately by the Streamlit application. The two outputs are displayed together but are not automatically reconciled into a single verified defect classification.
+**Architecture note:** BatteryGuard Vision supports local and cloud-based image processing.
+
+In **Local OpenCV** mode, image analysis runs directly on the user's computer without invoking AWS services.
+
+In **AWS Lambda** mode, OpenCV 5 runs inside a containerized Lambda function. When **Bedrock Vision** is enabled, Streamlit separately invokes Amazon Bedrock Nova Lite for contextual assessment.
+
+The OpenCV and Bedrock outputs are displayed together but are not automatically reconciled into a single verified defect classification.
 
 ## 3. Core Components
 
